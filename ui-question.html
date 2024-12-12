@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Bootstrap CSS v5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .wrapper {
+            display: flex;
+            height: 100%;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            padding: 15px;
+            border-right: 1px solid #dee2e6;
+            display: flex;
+            flex-direction: column;
+            color: white;
+        }
+
+        .content {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .nav-link {
+            color: white;
+        }
+
+        .nav-link:hover {
+            color: #adb5bd;
+        }
+
+        .answer-format {
+            background-color: #d3d3d3;
+            padding: 20px;
+        }
+
+        .answer-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <div class="wrapper">
+        <div class="sidebar">
+            <h2>School DBMS</h2>
+            <small style="color:grey;">Student Portal</small>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="ui-classroom-v2.html">Classroom</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"> <i class="bi bi-list-task"></i> To Do</a>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="img/avatar-placeholder.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong>[Username]</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                    <!-- Remove most of these later -->
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="ui-login.html">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- Content -->
+        <div class="content">
+
+            <div class="alert alert-danger" role="alert">
+                <strong>WIP!</strong> Sidebar Style UI
+            </div>
+
+            <div class="container-fluid p-3">
+
+                <h1>Test Name [Class Code]</h1>
+
+                <div>
+                    <span class="badge rounded-pill text-bg-primary">0/50</span>
+                </div>
+
+                <div class="container p-3 bg-light shadow-lg">
+
+                    <div class="mb-4">
+                        <div>
+                            <h3>Question #1</h3>
+                        </div>
+                        <div>
+                            <p>Sociologists may conduct cross-cultural research, or research designed to reveal
+                                variations across different groups of people. Choose all of the methods of research that
+                                are involved.</p>
+                        </div>
+                        <b>
+                            <p>Choose at least one correct answer</p>
+                        </b>
+                        <div class="answer-container">
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question1" id="q1_option1">
+                                <label class="form-check-label" for="q1_option1">Survey</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question1" id="q1_option2">
+                                <label class="form-check-label" for="q1_option2">Crowd Influence</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question1" id="q1_option3">
+                                <label class="form-check-label" for="q1_option3">Negotiation</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question1" id="q1_option4">
+                                <label class="form-check-label" for="q1_option4">Direct Observation</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question1" id="q1_option5">
+                                <label class="form-check-label" for="q1_option5">Participant Observation</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div>
+                            <h3>Question #2</h3>
+                        </div>
+                        <div>
+                            <p>What is the primary purpose of qualitative research in sociology?</p>
+                        </div>
+                        <b>
+                            <p>Choose the correct answer</p>
+                        </b>
+                        <div class="answer-container">
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question2" id="q2_option1">
+                                <label class="form-check-label" for="q2_option1">To gather numerical data</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question2" id="q2_option2">
+                                <label class="form-check-label" for="q2_option2">To understand social phenomena</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question2" id="q2_option3">
+                                <label class="form-check-label" for="q2_option3">To test hypotheses</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question2" id="q2_option4">
+                                <label class="form-check-label" for="q2_option4">To develop theories</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div>
+                            <h3>Question #3</h3>
+                        </div>
+                        <div>
+                            <p>Which research method involves living within a community to study their behaviors?</p>
+                        </div>
+                        <b>
+                            <p>Select one answer</p>
+                        </b>
+                        <div class="answer-container">
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question3" id="q3_option1">
+                                <label class="form-check-label" for="q3_option1">Participant Observation</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question3" id="q3_option2">
+                                <label class="form-check-label" for="q3_option2">Survey</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question3" id="q3_option3">
+                                <label class="form-check-label" for="q3_option3">Crowd Influence</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question3" id="q3_option4">
+                                <label class="form-check-label" for="q3_option4">Negotiation</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question3" id="q3_option5">
+                                <label class="form-check-label" for="q3_option5">Direct Observation</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div>
+                            <h3>Question #4</h3>
+                        </div>
+                        <div>
+                            <p>What is the main advantage of using surveys in sociological research?</p>
+                        </div>
+                        <b>
+                            <p>Choose the best answer</p>
+                        </b>
+                        <div class="answer-container">
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question4" id="q4_option1">
+                                <label class="form-check-label" for="q4_option1">Large sample size</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question4" id="q4_option2">
+                                <label class="form-check-label" for="q4_option2">Low cost</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question4" id="q4_option3">
+                                <label class="form-check-label" for="q4_option3">High response rate</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question4" id="q4_option4">
+                                <label class="form-check-label" for="q4_option4">High accuracy</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div>
+                            <h3>Question #5</h3>
+                        </div>
+                        <div>
+                            <p>Which of the following is a key ethical consideration in sociological research?</p>
+                        </div>
+                        <b>
+                            <p>Select the correct answer</p>
+                        </b>
+                        <div class="answer-container">
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question5" id="q5_option1">
+                                <label class="form-check-label" for="q5_option1">Informed consent</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question5" id="q5_option2">
+                                <label class="form-check-label" for="q5_option2">Anonymity</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question5" id="q5_option3">
+                                <label class="form-check-label" for="q5_option3">Confidentiality</label>
+                            </div>
+                            <div class="answer-format rounded">
+                                <input class="form-check-input" type="radio" name="question5" id="q5_option4">
+                                <label class="form-check-label" for="q5_option4">Transparency</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-3 gap-3">
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap Content -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
