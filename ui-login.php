@@ -7,12 +7,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = mysqli_real_escape_string($link, $_POST['username']);
     $password = mysqli_real_escape_string($link, $_POST['password']);
 
-    $sql = "SELECT * FROM users WHERE username = '$username' and password = '$password'";
+    $sql = "SELECT isStudent FROM users WHERE username = '$username' and password = '$password'";
     $result = mysqli_query($link, $sql);
     $count = mysqli_num_rows($result);
 
     if ($count == 1) {
+        $row = mysqli_fetch_assoc($result);
+        $isStudent = $row['isStudent'];
         $_SESSION['login_user'] = $username;
+        $_SESSION['isStudent'] = $isStudent;
         header("location: ui-classroom-v2.php");
     } else {
         $error = "Invalid login. Try again!";
@@ -102,6 +105,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="text-center mt-3">
                 <a href="#" class="text-decoration-none">Forgot password?</a>
+            </div>
+            
+            <div class="text-center">
+            <small class="text-center mt-3">
+                v0.2.3 16/12/2024
+            </small>
             </div>
         </form>
     </div>

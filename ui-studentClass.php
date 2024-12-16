@@ -142,7 +142,7 @@ include('session.php');
                             <span class="badge rounded-pill text-bg-primary">0/50</span>
                         </div>
                         <p>Details about Activity 1 - Test. This activity covers chapters 1-3 of the textbook and includes multiple-choice and short-answer questions.</p>
-                        <button class="btn btn-primary" onclick="location.href='ui-question.html'">Answer Activity</button>
+                        <button class="btn btn-primary" onclick="location.href='ui-question.php'">Answer Activity</button>
                     </div>
                 </div>
 

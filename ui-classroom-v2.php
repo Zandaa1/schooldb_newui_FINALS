@@ -7,18 +7,14 @@ include('session.php');
 
 <head>
     <title>Classroom</title>
-
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
     <!-- Bootstrap CSS v5.3.2 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-
     <style>
         body,
         html {
@@ -69,9 +65,7 @@ include('session.php');
 </head>
 
 <body>
-
     <!-- Icons -->
-
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
         <symbol id="check-circle-fill" viewBox="0 0 16 16">
             <path
@@ -88,7 +82,6 @@ include('session.php');
     </svg>
 
     <!-- Side Bar -->
-
     <div class="wrapper">
         <div class="sidebar">
             <h2>School DBMS</h2>
@@ -122,7 +115,6 @@ include('session.php');
         </div>
 
         <!-- Content -->
-
         <div class="content">
             <div class="container-fluid p-3">
                 <div class="alert alert-danger d-flex align-items-center" role="alert">
@@ -131,6 +123,11 @@ include('session.php');
                     </svg>
                     Please check back later.
                 </div>
+
+
+    <!-- Remove on release DEV MENU -->
+            <a href="ui-devmenu.php" class="btn btn-danger">Dev Menu</a>
+            <?php echo '<p>(0 = Teacher, 1 = Student) Current User: ' . $isStudent . '</p>' ?>
 
                 <h1>Welcome back, <?php echo $login_session; ?>!</h1>
 
@@ -191,19 +188,15 @@ include('session.php');
                             </div>
                         </a>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
 
     <!-- Bootstrap Script  -->
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>

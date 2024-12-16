@@ -7,5 +7,6 @@
       die();
    }
    $login_session = $_SESSION['login_user'];
+   $isStudent = $_SESSION['isStudent'];
    
 ?>
