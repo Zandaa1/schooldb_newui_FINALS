@@ -88,7 +88,7 @@ include('session.php');
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="img/avatar-placeholder.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong><?php echo $login_session;?></strong>
+                    <strong><?php echo $nickname;?></strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <!-- Remove most of these later -->

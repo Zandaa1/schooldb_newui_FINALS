@@ -7,15 +7,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = mysqli_real_escape_string($link, $_POST['username']);
     $password = mysqli_real_escape_string($link, $_POST['password']);
 
-    $sql = "SELECT isStudent FROM users WHERE username = '$username' and password = '$password'";
+    $sql = "SELECT isStudent, nickname FROM users WHERE username = '$username' and password = '$password'";
     $result = mysqli_query($link, $sql);
     $count = mysqli_num_rows($result);
 
     if ($count == 1) {
         $row = mysqli_fetch_assoc($result);
+        
         $isStudent = $row['isStudent'];
+        $nickname = $row['nickname'];
+
         $_SESSION['login_user'] = $username;
         $_SESSION['isStudent'] = $isStudent;
+        $_SESSION['nickname'] = $nickname;
         header("location: ui-classroom-v2.php");
     } else {
         $error = "Invalid login. Try again!";

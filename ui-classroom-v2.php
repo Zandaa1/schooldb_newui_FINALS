@@ -85,7 +85,16 @@ include('session.php');
     <div class="wrapper">
         <div class="sidebar">
             <h2>School DBMS</h2>
-            <small style="color:grey;">Student Portal</small>
+
+            <small style="color:grey;"><?php
+
+                                        if ($isStudent == 1) {
+                                            echo 'Student Portal';
+                                        } else {
+                                            echo 'Teacher Portal';
+                                        }
+
+                                        ?></small>
             <ul class="nav flex-column">
                 <li class="nav-item">
                     <a class="nav-link active" href="ui-classroom-v2.php">Classroom</a>
@@ -99,7 +108,7 @@ include('session.php');
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="img/avatar-placeholder.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong><?php echo $login_session; ?></strong>
+                    <strong><?php echo $nickname; ?></strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <!-- Remove most of these later -->
@@ -125,11 +134,17 @@ include('session.php');
                 </div>
 
 
-    <!-- Remove on release DEV MENU -->
-            <a href="ui-devmenu.php" class="btn btn-danger">Dev Menu</a>
-            <?php echo '<p>(0 = Teacher, 1 = Student) Current User: ' . $isStudent . '</p>' ?>
+                <!-- Remove on release DEV MENU -->
+                <a href="ui-devmenu.php" class="btn btn-danger">Dev Menu</a>
+                <?php echo '<p>(0 = Teacher, 1 = Student) Current User: ' . $isStudent . '</p>' ?>
 
-                <h1>Welcome back, <?php echo $login_session; ?>!</h1>
+                <h1>Welcome back, <?php
+                                    if ($isStudent == 0) {
+                                        echo 'Teacher ';
+                                    }
+
+                                    echo $nickname;
+                                    ?>!</h1>
 
                 <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-3">
                     <div class="col">

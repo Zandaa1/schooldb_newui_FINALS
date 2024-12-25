@@ -100,7 +100,7 @@ include('session.php');
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="img/avatar-placeholder.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong><?php echo $login_session; ?></strong>
+                    <strong><?php echo $nickname; ?></strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <!-- Remove most of these later -->
@@ -129,6 +129,16 @@ include('session.php');
     <!-- Remove on release DEV MENU -->
             <a href="ui-classroom-v2.php" class="btn btn-danger">Return to userMode</a>
             <a href="logout.php" class="btn btn-primary">Logout session</a>
+            <a href="" class="btn btn-success">Clear Data</a>
+
+            <small>Current Mode: <?php 
+            if ($isStudent == 0) {
+                echo 'Teacher';
+            } else {
+                echo 'Student';
+            }
+            ?> 
+            </small>
 
             <?php
                     // Include config file
