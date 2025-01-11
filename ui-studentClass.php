@@ -1,5 +1,10 @@
 <?php
 include('session.php');
+require_once "config.php";
+
+// Ensure $studentId and $isStudent are defined
+$studentId = $_SESSION['id'];
+$isStudent = $_SESSION['isStudent'];
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
@@ -91,13 +96,6 @@ include('session.php');
                     <strong><?php echo $nickname;?></strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <!-- Remove most of these later -->
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
                     <li><a class="dropdown-item" href="ui-login.php">Sign out</a></li>
                 </ul>
             </div>
@@ -110,6 +108,12 @@ include('session.php');
 
             <div class="container-fluid p-3">
 
+            <?php
+            if ($isStudent == 0) {
+                echo '<a href="ui-newtest.php" class="btn btn-danger">Create a new test</a>';
+                echo '<br></br>';
+            }
+            ?>
                 <div class="col">
                     <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded"
                         style="background-image: url('img/sci.png');">
@@ -127,43 +131,67 @@ include('session.php');
                     </div>
                 </div>
 
-                <div class="d-flex align-items-center p-3 my-3 text-white bg-dark rounded shadow-sm">
-                    <a href="#activity1Details" class="text-white text-decoration-none w-100" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="activity1Details">
-                        <div class="lh-1">
-                            <h2 class="h6 mb-0 text-white">Activity 1 - Test</h2>
-                            <small>Due on Dec 9</small>
-                        </div>
-                    </a>
-                </div>
+                <?php
+                $sql = "SELECT * FROM tests";
+                if ($result = mysqli_query($link, $sql)) {
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_array($result)) {
+                            $dueDate = new DateTime($row['dueDate']);
+                            $currentDate = new DateTime();
+                            echo '<div class="d-flex align-items-center p-3 my-3 text-white bg-dark rounded shadow-sm">';
+                            echo '<a href="#activity' . $row['id'] . 'Details" class="text-white text-decoration-none w-100" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="activity' . $row['id'] . 'Details">';
+                            echo '<div class="lh-1">';
+                            echo '<h2 class="h6 mb-0 text-white">' . $row['testName'] . '</h2>';
+                            echo '<small>Due on ' . $row['dueDate'] . '</small>';
+                            echo '</div>';
+                            echo '</a>';
+                            echo '</div>';
+                            echo '<div class="collapse" id="activity' . $row['id'] . 'Details">';
+                            echo '<div class="card card-body bg-dark text-white">';
+                            echo '<div>';
+                            echo '<span class="badge rounded-pill text-bg-primary">0/50</span>';
+                            echo '</div>';
+                            echo '<p>' . $row['description'] . '</p>';
 
-                <div class="collapse" id="activity1Details">
-                    <div class="card card-body bg-dark text-white">
-                        <div>
-                            <span class="badge rounded-pill text-bg-primary">0/50</span>
-                        </div>
-                        <p>Details about Activity 1 - Test. This activity covers chapters 1-3 of the textbook and includes multiple-choice and short-answer questions.</p>
-                        <button class="btn btn-primary" onclick="location.href='ui-question.php'">Answer Activity</button>
-                    </div>
-                </div>
+                            // Check if the test is already answered by the student
+                            $sqlAnswered = "SELECT totalCorrectAnswers FROM answered_tests WHERE studentId = $studentId AND testId = " . $row['id'];
+                            $resultAnswered = mysqli_query($link, $sqlAnswered);
+                            if (mysqli_num_rows($resultAnswered) > 0) {
+                                $rowAnswered = mysqli_fetch_assoc($resultAnswered);
+                                $totalCorrectAnswers = $rowAnswered['totalCorrectAnswers'];
+                                echo '<div class="alert alert-info">You have already answered this test. Your score is: ' . $totalCorrectAnswers . '</div>';
 
-                <div class="d-flex align-items-center p-3 my-3 text-white bg-dark rounded shadow-sm">
-                    <a href="#activity2Details" class="text-white text-decoration-none w-100" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="activity1Details">
-                        <div class="lh-1">
-                            <h2 class="h6 mb-0 text-white">Activity 1 - Test</h2>
-                            <small>Due on Dec 9</small>
-                        </div>
-                    </a>
-                </div>
+                                // Display correct answers
+                                $sqlCorrectAnswers = "SELECT question, correctAnswer FROM test_questions WHERE testId = " . $row['id'];
+                                $resultCorrectAnswers = mysqli_query($link, $sqlCorrectAnswers);
+                                if (mysqli_num_rows($resultCorrectAnswers) > 0) {
+                                    echo '<div class="alert alert-success"><strong>Correct Answers:</strong><ul>';
+                                    while ($rowCorrectAnswers = mysqli_fetch_assoc($resultCorrectAnswers)) {
+                                        echo '<li>' . $rowCorrectAnswers['question'] . ': ' . $rowCorrectAnswers['correctAnswer'] . '</li>';
+                                    }
+                                    echo '</ul></div>';
+                                    mysqli_free_result($resultCorrectAnswers);
+                                }
+                            } else {
+                                if ($isStudent == 1 && $currentDate > $dueDate) {
+                                    echo '<div class="alert alert-danger">The due date for this test has passed. You cannot answer it anymore.</div>';
+                                } else {
+                                    echo '<button class="btn btn-primary" onclick="location.href=\'ui-question.php?id=' . $row['id'] . '\'">Answer Activity</button>';
+                                }
+                            }
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                        mysqli_free_result($result);
+                    } else {
+                        echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                    }
+                } else {
+                    echo "Oops! Something went wrong. Please try again later.";
+                }
+                mysqli_close($link);
+                ?>
 
-                <div class="collapse" id="activity2Details">
-                    <div class="card card-body bg-dark text-white">
-                        <div>
-                            <span class="badge rounded-pill text-bg-primary">0/50</span>
-                        </div>
-                        <p>Details about Activity 1 - Test. This activity covers chapters 1-3 of the textbook and includes multiple-choice and short-answer questions.</p>
-                        <button class="btn btn-primary" onclick="location.href='ui-question.html'">Answer Activity</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

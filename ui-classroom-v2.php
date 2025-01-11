@@ -100,7 +100,7 @@ include('session.php');
                     <a class="nav-link active" href="ui-classroom-v2.php">Classroom</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"> <i class="bi bi-list-task"></i> To Do</a>
+                    <a class="nav-link disabled" href="#"> <i class="bi bi-list-task"></i> To Do</a>
                 </li>
             </ul>
             <hr>
@@ -112,12 +112,8 @@ include('session.php');
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <!-- Remove most of these later -->
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
+
+                    
                     <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
                 </ul>
             </div>
@@ -146,64 +142,43 @@ include('session.php');
                                     echo $nickname;
                                     ?>!</h1>
 
-                <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-3">
-                    <div class="col">
-                        <a href="ui-studentClass.php" class="text-decoration-none">
-                            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-                                style="background-image: url('img/sci.png');">
-                                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                                    <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">BSIT 244 - DATABASE MANAGEMENT SYSTEMS
-                                        (LEC & LAB)</h4>
-                                    <ul class="d-flex list-unstyled mt-auto">
-                                        <li class="me-auto">
-                                            <img src="img/avatar-placeholder.jpg" alt="Bootstrap" width="32" height="32"
-                                                class="rounded-circle border border-white">
-                                            <small>Tristan Jay Calaguas</small>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+<?php 
 
-                    <div class="col">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-                                style="background-image: url('img/sci.png');">
-                                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                                    <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">BSIT 244 - DATABASE MANAGEMENT SYSTEMS
-                                        (LEC & LAB)</h4>
-                                    <ul class="d-flex list-unstyled mt-auto">
-                                        <li class="me-auto">
-                                            <img src="img/avatar-placeholder.jpg" alt="Bootstrap" width="32" height="32"
-                                                class="rounded-circle border border-white">
-                                            <small>Tristan Jay Calaguas</small>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+require_once "config.php";
 
-                    <div class="col">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-                                style="background-image: url('img/sci.png');">
-                                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                                    <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">BSIT 244 - DATABASE MANAGEMENT SYSTEMS
-                                        (LEC & LAB)</h4>
-                                    <ul class="d-flex list-unstyled mt-auto">
-                                        <li class="me-auto">
-                                            <img src="img/avatar-placeholder.jpg" alt="Bootstrap" width="32" height="32"
-                                                class="rounded-circle border border-white">
-                                            <small>Tristan Jay Calaguas</small>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+$sql = "SELECT classrooms.className, users.name AS teacher_name FROM classrooms 
+        JOIN users ON classrooms.classIDTeacher = users.id";
+if($result = mysqli_query($link, $sql)){
+    if(mysqli_num_rows($result) > 0){
+        while($row = mysqli_fetch_array($result)){
+            echo '<div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-3">';
+            echo '<div class="col">';
+            echo '<a href="ui-studentClass.php" class="text-decoration-none">';
+            echo '<div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(\'img/sci.png\');">';
+            echo '<div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">';
+            echo '<h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">' . $row['className'] . '</h4>';
+            echo '<ul class="d-flex list-unstyled mt-auto">';
+            echo '<li class="me-auto">';
+            echo '<img src="img/avatar-placeholder.jpg" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">';
+            echo '<small>' . $row['teacher_name'] . '</small>';
+            echo '</li>';
+            echo '</ul>';
+            echo '</div>';
+            echo '</div>';
+            echo '</a>';
+            echo '</div>';
+            echo '</div>';
+        }
+        mysqli_free_result($result);
+    } else {
+        echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+    }
+} else {
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+}
+
+mysqli_close($link);
+?>
             </div>
         </div>
     </div>

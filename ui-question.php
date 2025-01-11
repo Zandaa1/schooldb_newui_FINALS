@@ -1,5 +1,53 @@
 <?php
 include('session.php');
+require_once "config.php";
+
+$testId = $_GET['id'];
+$studentId = $_SESSION['id'];
+
+// Check if the test is already answered by the student
+$sql = "SELECT totalCorrectAnswers FROM answered_tests WHERE studentId = $studentId AND testId = $testId";
+$result = mysqli_query($link, $sql);
+if (mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $totalCorrectAnswers = $row['totalCorrectAnswers'];
+    echo "<div class='alert alert-info'>You have already answered this test. Your score is: $totalCorrectAnswers</div>";
+    mysqli_free_result($result);
+    mysqli_close($link);
+    exit();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $answers = $_POST['answers'];
+    $correctAnswers = 0;
+
+    // Insert into answered_tests table
+    $sql = "INSERT INTO answered_tests (studentId, testId) VALUES ($studentId, $testId)";
+    mysqli_query($link, $sql);
+    $answeredTestId = mysqli_insert_id($link);
+
+    foreach ($answers as $questionId => $answer) {
+        // Check if the answer is correct
+        $sql = "SELECT correctAnswer FROM test_questions WHERE id = $questionId AND testId = $testId";
+        $result = mysqli_query($link, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $isCorrect = ($row['correctAnswer'] === 'option' . $answer) ? 1 : 0;
+        if ($isCorrect) {
+            $correctAnswers++;
+        }
+
+        // Insert into student_answers table
+        $sql = "INSERT INTO student_answers (studentId, questionId, answer, isCorrect) VALUES ($studentId, $questionId, 'option$answer', $isCorrect)";
+        mysqli_query($link, $sql);
+    }
+
+    // Save the total correct answers to the database
+    $sql = "UPDATE answered_tests SET totalCorrectAnswers = $correctAnswers WHERE id = $answeredTestId";
+    mysqli_query($link, $sql);
+
+    header("Location: ui-classroom-v2.php?correctAnswers=$correctAnswers");
+    exit();
+}
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
@@ -76,7 +124,7 @@ include('session.php');
                     <a class="nav-link active" href="ui-classroom-v2.php">Classroom</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"> <i class="bi bi-list-task"></i> To Do</a>
+                    <a class="nav-link disabled" href="#"> <i class="bi bi-list-task"></i> To Do</a>
                 </li>
             </ul>
             <hr>
@@ -88,12 +136,8 @@ include('session.php');
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <!-- Remove most of these later -->
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
+
+                    
                     <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
                 </ul>
             </div>
@@ -102,58 +146,70 @@ include('session.php');
         <!-- Content -->
         <div class="content">
 
-            <div class="alert alert-danger" role="alert">
-                <strong>WIP!</strong> Sidebar Style UI
-            </div>
-
             <div class="container-fluid p-3">
 
-                <h1>Test Name [Class Code]</h1>
+                <a class="btn btn-primary" href="ui-classroom-v2.php">Go Back</a>
 
-                <div>
-                    <span class="badge rounded-pill text-bg-primary">0/50</span>
-                </div>
-
-                <div class="container p-3 bg-light shadow-lg">
-
-                    <?php
-                    require_once "config.php";
-
-                    $sql = "SELECT * FROM testquestion";
-                    if($result = mysqli_query($link, $sql)){
-                        if(mysqli_num_rows($result) > 0){
-                            while($row = mysqli_fetch_array($result)) {
-                                echo '<div class="mb-4">';
-                                echo '<div><h3>Question #' . $row['id'] . '</h3></div>';
-                                echo '<div><p>' . $row['question'] . '</p></div>';
-                                echo '<b><p>Choose at least one correct answer</p></b>';
-                                echo '<div class="answer-container">';
-                                for ($i = 1; $i <= 5; $i++) {
-                                    if (!empty($row['answer' . $i])) {
-                                        echo '<div class="answer-format rounded">';
-                                        echo '<input class="form-check-input" type="radio" name="question' . $row['id'] . '" id="q' . $row['id'] . '_option' . $i . '">';
-                                        echo '<label class="form-check-label" for="q' . $row['id'] . '_option' . $i . '">' . $row['answer' . $i] . '</label>';
-                                        echo '</div>';
-                                    }
-                                }
-                                echo '</div>';
-                                echo '</div>';
-                            }
+                <?php
+                $sql = "SELECT * FROM tests WHERE id = $testId";
+                if ($result = mysqli_query($link, $sql)) {
+                    if (mysqli_num_rows($result) > 0) {
+                        $test = mysqli_fetch_array($result);
+                        $dueDate = new DateTime($test['dueDate']);
+                        $currentDate = new DateTime();
+                        echo '<h1>' . $test['testName'] . '</h1>';
+                        echo '<div><span class="badge rounded-pill text-bg-primary">0/50</span></div>';
+                        if ($isStudent == 1 && $currentDate > $dueDate) {
+                            echo '<div class="alert alert-danger">The due date for this test has passed. You cannot answer it anymore.</div>';
                             mysqli_free_result($result);
-                        } else {
-                            echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                            mysqli_close($link);
+                            exit();
                         }
-                    } else {
-                        echo "Oops! Something went wrong. Please try again later.";
                     }
-                    mysqli_close($link);
-                    ?>
+                    mysqli_free_result($result);
+                }
+                ?>
 
-                    <div class="d-flex justify-content-end mt-3 gap-3">
-                        <button class="btn btn-primary">Submit</button>
+                <form method="post" action="">
+                    <div class="container p-3 bg-light shadow-lg">
+
+                        <?php
+                        $sql = "SELECT * FROM test_questions WHERE testId = $testId";
+                        if ($result = mysqli_query($link, $sql)) {
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_array($result)) {
+                                    echo '<div class="mb-4">';
+                                    echo '<div><h3>Question #' . $row['id'] . '</h3></div>';
+                                    echo '<div><p>' . $row['question'] . '</p></div>';
+                                    echo '<b><p>Choose at least one correct answer</p></b>';
+                                    echo '<div class="answer-container">';
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        if (!empty($row['answer' . $i])) {
+                                            echo '<div class="answer-format rounded">';
+                                            echo '<input class="form-check-input" type="radio" name="answers[' . $row['id'] . ']" value="' . $i . '" id="q' . $row['id'] . '_option' . $i . '">';
+                                            echo '<label class="form-check-label" for="q' . $row['id'] . '_option' . $i . '">' . $row['answer' . $i] . '</label>';
+                                            echo '</div>';
+                                        }
+                                    }
+                                    echo '</div>';
+                                    echo '</div>';
+                                }
+                                mysqli_free_result($result);
+                            } else {
+                                echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                            }
+                        } else {
+                            echo "Oops! Something went wrong. Please try again later.";
+                        }
+                        mysqli_close($link);
+                        ?>
+
+                        <div class="d-flex justify-content-end mt-3 gap-3">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+
                     </div>
-
-                </div>
+                </form>
 
             </div>
         </div>

@@ -1,3 +1,6 @@
+<?php
+include('session.php');
+?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
@@ -65,7 +68,7 @@
 
 <body>
 
-<!-- Sidebar -->
+    <!-- Sidebar -->
 
     <div class="wrapper">
         <div class="sidebar">
@@ -73,7 +76,7 @@
             <small style="color:grey;">Student Portal</small>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="ui-classroom-v2.html">Classroom</a>
+                    <a class="nav-link active" href="ui-classroom-v2.php">Classroom</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#"> <i class="bi bi-list-task"></i> To Do</a>
@@ -84,13 +87,13 @@
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="img/avatar-placeholder.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>[Username]</strong>
+                    <strong><?php echo $nickname; ?></strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <!-- Remove most of these later -->
 
-                    
-                    <li><a class="dropdown-item" href="ui-login.html">Sign out</a></li>
+
+                    <li><a class="dropdown-item" href="ui-login.php">Sign out</a></li>
                 </ul>
             </div>
         </div>
@@ -102,11 +105,24 @@
 
             <div class="container-fluid p-3">
 
-                <h1>Welcome back, [userName]!</h1>
+                <div class="alert alert-danger">
+                    <strong>WIP!</strong> Teacher UI
+                </div>
 
+                <div class="p-3">
+                    
+                <h3>WORK IN PROGRESS</h3>
+                <small>!! IMPORTANT !!</small>
 
+                <br>
 
+                <a class="btn btn-primary" href="ui-createtest.php">Create Test</a>
 
+                <a class="btn btn-primary" href="">Check Student Test</a>
+
+                <a class="btn btn-primary" href="">Grade Book</a>
+
+                </div>
             </div>
         </div>
     </div>

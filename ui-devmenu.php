@@ -92,7 +92,7 @@ include('session.php');
                     <a class="nav-link active" href="ui-classroom-v2.php">Classroom</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"> <i class="bi bi-list-task"></i> To Do</a>
+                    <a class="nav-link disabled" href="#"> <i class="bi bi-list-task"></i> To Do</a>
                 </li>
             </ul>
             <hr>
@@ -103,13 +103,6 @@ include('session.php');
                     <strong><?php echo $nickname; ?></strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <!-- Remove most of these later -->
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
                     <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
                 </ul>
             </div>
@@ -145,39 +138,37 @@ include('session.php');
                     require_once "config.php";
                     
                     // Attempt select query execution
-                    $sql = "SELECT * FROM testquestion";
+                    $sql = "SELECT * FROM test_questions";
                     $sql2 = "SELECT * FROM users";
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
-                            echo '<h1>DB [Questions]</h1>';
+                            echo '<h1>DB [Test Questions]</h1>';
                             echo '<table class="table table-bordered table-striped">';
                                 echo "<thead>";
                                     echo "<tr>";
-                                        echo "<th>Question Number</th>";
+                                        echo "<th>Question ID</th>";
+                                        echo "<th>Test ID</th>";
                                         echo "<th>Question</th>";
                                         echo "<th>Answer #1</th>";
                                         echo "<th>Answer #2</th>";
                                         echo "<th>Answer #3</th>";
                                         echo "<th>Answer #4</th>";
+                                        echo "<th>Answer #5</th>";
                                         echo "<th>Correct Answer</th>";
-                                        echo "<th>Options</th>";
                                     echo "</tr>";
                                 echo "</thead>";
                                 echo "<tbody>";
                                 while($row = mysqli_fetch_array($result)){
                                     echo "<tr>";
                                         echo "<td>" . $row['id'] . "</td>";
+                                        echo "<td>" . $row['testId'] . "</td>";
                                         echo "<td>" . $row['question'] . "</td>";
                                         echo "<td>" . $row['answer1'] . "</td>";
                                         echo "<td>" . $row['answer2'] . "</td>";
                                         echo "<td>" . $row['answer3'] . "</td>";
                                         echo "<td>" . $row['answer4'] . "</td>";
-                                        echo "<td>" . $row['correct'] . "</td>";
-                                        echo "<td>";
-                                            echo '<a href="read.php?id='. $row['id'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
-                                            echo '<a href="update.php?id='. $row['id'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                                            echo '<a href="delete.php?id='. $row['id'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-                                        echo "</td>";
+                                        echo "<td>" . $row['answer5'] . "</td>";
+                                        echo "<td>" . $row['correctAnswer'] . "</td>";
                                     echo "</tr>";
                                 }
                                 echo "</tbody>";                            
@@ -241,6 +232,11 @@ include('session.php');
         </div>
     </div>
 
+    <?php
+    echo "<script>
+    console.log('id: " . $id . " | isStudent: " . $isStudent . " | nickname: " . $nickname . "');
+    </script>";
+    ?>
     <!-- Bootstrap Script  -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
