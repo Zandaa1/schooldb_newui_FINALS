@@ -53,7 +53,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en" data-bs-theme="auto">
 
 <head>
-    <title>Quiz</title>
+    <title>
+        
+    <php 
+    
+    echo "Answer Test";
+
+
+    ?></title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -184,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     echo '<b><p>Choose at least one correct answer</p></b>';
                                     echo '<div class="answer-container">';
                                     for ($i = 1; $i <= 5; $i++) {
-                                        if (!empty($row['answer' . $i])) {
+                                        if (isset($row['answer' . $i])) {
                                             echo '<div class="answer-format rounded">';
                                             echo '<input class="form-check-input" type="radio" name="answers[' . $row['id'] . ']" value="' . $i . '" id="q' . $row['id'] . '_option' . $i . '">';
                                             echo '<label class="form-check-label" for="q' . $row['id'] . '_option' . $i . '">' . $row['answer' . $i] . '</label>';

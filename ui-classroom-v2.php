@@ -168,6 +168,7 @@ if($result = mysqli_query($link, $sql)){
             echo '</a>';
             echo '</div>';
             echo '</div>';
+            $_SESSION['className'] = $row['className'];
         }
         mysqli_free_result($result);
     } else {

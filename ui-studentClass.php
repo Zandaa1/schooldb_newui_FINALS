@@ -5,12 +5,18 @@ require_once "config.php";
 // Ensure $studentId and $isStudent are defined
 $studentId = $_SESSION['id'];
 $isStudent = $_SESSION['isStudent'];
+$className = $_SESSION['className'];
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
 <head>
-    <title>Title</title>
+    <title>
+        <?php 
+    echo $className;
+    
+    ?>
+    </title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -85,7 +91,7 @@ $isStudent = $_SESSION['isStudent'];
                     <a class="nav-link active" href="ui-classroom-v2.php">Classroom</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"> <i class="bi bi-list-task"></i> To Do</a>
+                    <a class="nav-link disabled" href="#"> <i class="bi bi-list-task"></i> To Do</a>
                 </li>
             </ul>
             <hr>
@@ -149,7 +155,6 @@ $isStudent = $_SESSION['isStudent'];
                             echo '<div class="collapse" id="activity' . $row['id'] . 'Details">';
                             echo '<div class="card card-body bg-dark text-white">';
                             echo '<div>';
-                            echo '<span class="badge rounded-pill text-bg-primary">0/50</span>';
                             echo '</div>';
                             echo '<p>' . $row['description'] . '</p>';
 
@@ -184,6 +189,7 @@ $isStudent = $_SESSION['isStudent'];
                         }
                         mysqli_free_result($result);
                     } else {
+                        echo '<br>';
                         echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
                     }
                 } else {

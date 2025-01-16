@@ -122,7 +122,7 @@ include('session.php');
     <!-- Remove on release DEV MENU -->
             <a href="ui-classroom-v2.php" class="btn btn-danger">Return to userMode</a>
             <a href="logout.php" class="btn btn-primary">Logout session</a>
-            <a href="" class="btn btn-success">Clear Data</a>
+            <a href="deleteTestData.php" class="btn btn-success">Clear Data</a>
 
             <small>Current Mode: <?php 
             if ($isStudent == 0) {
@@ -173,6 +173,8 @@ include('session.php');
                                 }
                                 echo "</tbody>";                            
                             echo "</table>";
+
+
                             // Free result set
                             mysqli_free_result($result);
                         } else{

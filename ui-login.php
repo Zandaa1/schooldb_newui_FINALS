@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($count == 1) {
         $row = mysqli_fetch_assoc($result);
-        
+
         $isStudent = $row['isStudent'];
         $nickname = $row['nickname'];
         $id = $row['id'];
@@ -104,19 +104,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <?php if ($error) { ?>
-                <div class="alert alert-danger mt-3">                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" fill="red">
+                <div class="alert alert-danger mt-3"> <svg class="bi flex-shrink-0 me-2" width="24" height="24" fill="red">
                         <use xlink:href="#exclamation-triangle-fill" />
                     </svg><?php echo $error; ?></div>
             <?php } ?>
 
-            <div class="text-center mt-3">
-                <a href="#" class="text-decoration-none">Forgot password?</a>
+            <div class="text-center p-2">
+
+                <a href="#">Create Account</a>
+
             </div>
-            
+
             <div class="text-center">
-            <small class="text-center mt-3">
-                v0.2.3 16/12/2024
-            </small>
+                <small class="text-center mt-3">
+                    v1.16.2025
+                </small>
             </div>
         </form>
     </div>
