@@ -81,32 +81,44 @@ $className = $_SESSION['className'];
 
     <!-- Sidebar -->
 
-    <?php require_once('ui-sidebar.php'); ?>
+    <div class="wrapper">
+        <div class="sidebar">
+            <h2>School DBMS</h2>
+            <small style="color:grey;">Student Portal</small>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="ui-classroom-v2.php">Classroom</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#"> <i class="bi bi-list-task"></i> To Do</a>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="img/avatar-placeholder.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong><?php echo $nickname;?></strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                    <li><a class="dropdown-item" href="index.php">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
 
 
         <!-- Content -->
 
         <div class="content">
 
-            <div class="container-fluid p-2">
+            <div class="container-fluid p-3">
 
             <?php
             if ($isStudent == 0) {
-                echo '<div class="d-flex flex-row">';
-                echo '<div class="p-2"><a href="ui-classroom-v2.php" class="btn btn-danger">Go back</a></div>';
-                echo '<div class="p-2"><a href="ui-newtest.php" class="btn btn-danger">Create a new test</a></div>';
-                echo '<div class="p-2"><a href="ui-newannouncement.php" class="btn btn-danger">Create an announcement</a></div>';
-                echo '<div class="p-2"><a href="ui-gradebook.php" class="btn btn-danger">Gradebook</a></div>';
-                echo '</div>';
-            } else {
-                echo '<div class="d-flex flex-row">';
-                echo '<div class="p-2"><a href="ui-classroom-v2.php" class="btn btn-danger">Go back</a></div>';
-                echo '</div>';
+                echo '<a href="ui-newtest.php" class="btn btn-danger">Create a new test</a>';
+                echo '<br></br>';
             }
             ?>
-
-            </div>
-            
                 <div class="col">
                     <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded"
                         style="background-image: url('img/sci.png');">
@@ -144,9 +156,6 @@ $className = $_SESSION['className'];
                             echo '<div>';
                             echo '</div>';
                             echo '<p>' . $row['description'] . '</p>';
-
-                            // Check if its a test or an announcement
-                            $isQuestion = $row['isTest'];
 
                             // Check if the test is already answered by the student
                             $sqlAnswered = "SELECT totalCorrectAnswers FROM answered_tests WHERE studentId = $studentId AND testId = " . $row['id'];

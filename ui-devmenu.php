@@ -14,8 +14,7 @@ include('session.php');
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Bootstrap CSS v5.3.2 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/journal/bootstrap.min.css" rel="stylesheet">
     <style>
         body,
         html {
@@ -83,30 +82,7 @@ include('session.php');
     </svg>
 
     <!-- Side Bar -->
-    <div class="wrapper">
-        <div class="sidebar">
-            <h2>School DBMS</h2>
-            <small style="color:grey;">Student Portal</small>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="ui-classroom-v2.php">Classroom</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#"> <i class="bi bi-list-task"></i> To Do</a>
-                </li>
-            </ul>
-            <hr>
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="img/avatar-placeholder.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong><?php echo $nickname; ?></strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
-                </ul>
-            </div>
-        </div>
+    <?php require_once('ui-sidebar.php'); ?>
 
         <!-- Content -->
         <div class="content">
@@ -196,7 +172,6 @@ include('session.php');
                                         echo "<th>Student Name</th>";
                                         echo "<th>Nickname</th>";
                                         echo "<th>isStudent</th>";
-                                        echo "<th>Options</th>";
                                     echo "</tr>";
                                 echo "</thead>";
                                 echo "<tbody>";
@@ -207,12 +182,11 @@ include('session.php');
                                         echo "<td>" . $row2['password'] . "</td>";
                                         echo "<td>" . $row2['name'] . "</td>";
                                         echo "<td>" . $row2['nickname'] . "</td>";
-                                        echo "<td>" . $row2['isStudent'] . "</td>";
-                                        echo "<td>";
-                                            echo '<a href="read.php?id='. $row2['id'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
-                                            echo '<a href="update.php?id='. $row2['id'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                                            echo '<a href="delete.php?id='. $row2['id'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-                                        echo "</td>";
+                                        if ($row2['isStudent'] == 0) {
+                                            echo "<td> Teacher </td>";
+                                        } else {
+                                            echo "<td> Student </td>";
+                                        }
                                     echo "</tr>";
                                 }
                                 echo "</tbody>";                            

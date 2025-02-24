@@ -14,8 +14,7 @@ include('session.php');
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Bootstrap CSS v5.3.2 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/journal/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body,
@@ -93,7 +92,7 @@ include('session.php');
                     <!-- Remove most of these later -->
 
 
-                    <li><a class="dropdown-item" href="ui-login.php">Sign out</a></li>
+                    <li><a class="dropdown-item" href="index.php">Sign out</a></li>
                 </ul>
             </div>
         </div>

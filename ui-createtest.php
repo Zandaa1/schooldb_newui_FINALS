@@ -103,8 +103,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Bootstrap CSS v5.3.2 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/journal/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body,
@@ -159,33 +158,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     <!-- Sidebar -->
 
-    <div class="wrapper">
-        <div class="sidebar">
-            <h2>School DBMS</h2>
-            <small style="color:grey;">Student Portal</small>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="ui-classroom-v2.php">Classroom</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#"> <i class="bi bi-list-task"></i> To Do</a>
-                </li>
-            </ul>
-            <hr>
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="img/avatar-placeholder.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong><?php echo $nickname; ?></strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <!-- Remove most of these later -->
-
-
-                    <li><a class="dropdown-item" href="ui-login.php">Sign out</a></li>
-                </ul>
-            </div>
-        </div>
+    <?php require_once('ui-sidebar.php'); ?>
 
 
         <!-- Content -->
@@ -196,6 +169,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             <div class="row">
                 <div class="col-md-12">
+                    
                     <h2 class="mt-5">Create Record</h2>
                     <p>Please fill this form and submit to add a test question to the database.</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">

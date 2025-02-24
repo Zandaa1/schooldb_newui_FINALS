@@ -13,8 +13,7 @@ include('session.php');
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Bootstrap CSS v5.3.2 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/journal/bootstrap.min.css" rel="stylesheet">
     <style>
         body,
         html {
@@ -82,42 +81,7 @@ include('session.php');
     </svg>
 
     <!-- Side Bar -->
-    <div class="wrapper">
-        <div class="sidebar">
-            <h2>School DBMS</h2>
-
-            <small style="color:grey;"><?php
-
-                                        if ($isStudent == 1) {
-                                            echo 'Student Portal';
-                                        } else {
-                                            echo 'Teacher Portal';
-                                        }
-
-                                        ?></small>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="ui-classroom-v2.php">Classroom</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#"> <i class="bi bi-list-task"></i> To Do</a>
-                </li>
-            </ul>
-            <hr>
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="img/avatar-placeholder.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong><?php echo $nickname; ?></strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <!-- Remove most of these later -->
-
-                    
-                    <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
-                </ul>
-            </div>
-        </div>
+    <?php require_once('ui-sidebar.php'); ?>
 
         <!-- Content -->
         <div class="content">
@@ -129,11 +93,6 @@ include('session.php');
                     Please check back later.
                 </div>
 
-
-                <!-- Remove on release DEV MENU -->
-                <a href="ui-devmenu.php" class="btn btn-danger">Dev Menu</a>
-                <?php echo '<p>(0 = Teacher, 1 = Student) Current User: ' . $isStudent . '</p>' ?>
-
                 <h1>Welcome back, <?php
                                     if ($isStudent == 0) {
                                         echo 'Teacher ';
@@ -142,44 +101,44 @@ include('session.php');
                                     echo $nickname;
                                     ?>!</h1>
 
-<?php 
+                <?php
 
-require_once "config.php";
+                require_once "config.php";
 
-$sql = "SELECT classrooms.className, users.name AS teacher_name FROM classrooms 
+                $sql = "SELECT classrooms.className, users.name AS teacher_name FROM classrooms 
         JOIN users ON classrooms.classIDTeacher = users.id";
-if($result = mysqli_query($link, $sql)){
-    if(mysqli_num_rows($result) > 0){
-        while($row = mysqli_fetch_array($result)){
-            echo '<div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-3">';
-            echo '<div class="col">';
-            echo '<a href="ui-studentClass.php" class="text-decoration-none">';
-            echo '<div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(\'img/sci.png\');">';
-            echo '<div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">';
-            echo '<h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">' . $row['className'] . '</h4>';
-            echo '<ul class="d-flex list-unstyled mt-auto">';
-            echo '<li class="me-auto">';
-            echo '<img src="img/avatar-placeholder.jpg" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">';
-            echo '<small>' . $row['teacher_name'] . '</small>';
-            echo '</li>';
-            echo '</ul>';
-            echo '</div>';
-            echo '</div>';
-            echo '</a>';
-            echo '</div>';
-            echo '</div>';
-            $_SESSION['className'] = $row['className'];
-        }
-        mysqli_free_result($result);
-    } else {
-        echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
-    }
-} else {
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-}
+                if ($result = mysqli_query($link, $sql)) {
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo '<div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-3">';
+                            echo '<div class="col">';
+                            echo '<a href="ui-studentClass.php" class="text-decoration-none">';
+                            echo '<div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(\'img/sci.png\');">';
+                            echo '<div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">';
+                            echo '<h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">' . $row['className'] . '</h4>';
+                            echo '<ul class="d-flex list-unstyled mt-auto">';
+                            echo '<li class="me-auto">';
+                            echo '<img src="img/avatar-placeholder.jpg" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">';
+                            echo '<small>' . $row['teacher_name'] . '</small>';
+                            echo '</li>';
+                            echo '</ul>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '</a>';
+                            echo '</div>';
+                            echo '</div>';
+                            $_SESSION['className'] = $row['className'];
+                        }
+                        mysqli_free_result($result);
+                    } else {
+                        echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                    }
+                } else {
+                    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                }
 
-mysqli_close($link);
-?>
+                mysqli_close($link);
+                ?>
             </div>
         </div>
     </div>

@@ -1,18 +1,15 @@
+<?php
+include('session.php');
+?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
 <head>
     <title>Title</title>
-    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- Bootstrap CSS v5.3.2 -->
     <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/journal/bootstrap.min.css" rel="stylesheet">
-
     <style>
         body,
         html {
@@ -59,63 +56,58 @@
             flex-direction: column;
             gap: 10px;
         }
+
+        .correct-answer-container {
+            display: flex;
+            gap: 10px;
+        }
     </style>
 </head>
 
 <body>
+    <?php require_once('ui-sidebar.php'); ?>
 
-<!-- Sidebar -->
+    <div class="content">
+        <div class="container-fluid p-3">
+            <div class="mb-3">
+                <div
+                    class="alert alert-danger"
+                    role="alert"
+                >
+                    <strong>WIP!</strong> Feature Not Implemented!
+                </div>
+                
+                <a href="ui-classroom-v2.php" class="btn btn-primary">Go back</a>
+                <h2 class="display-4">Create new announcement</h2>
 
-    <div class="wrapper">
-        <div class="sidebar">
-            <h2>School DBMS</h2>
-            <small style="color:grey;">Student Portal</small>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="ui-classroom-v2.html">Classroom</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#"> <i class="bi bi-list-task"></i> To Do</a>
-                </li>
-            </ul>
-            <hr>
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="img/avatar-placeholder.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>[Username]</strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <!-- Remove most of these later -->
+                <form action="">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Name</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name=""
+                            id=""
+                            aria-describedby="helpId"
+                            placeholder="" />
 
-                    
-                    <li><a class="dropdown-item" href="ui-login.html">Sign out</a></li>
-                </ul>
-            </div>
-        </div>
-
-
-        <!-- Content -->
-
-        <div class="content">
-
-            <div class="container-fluid p-3">
-
-                <h1>Welcome back, [userName]!</h1>
+                        <label for="">What is your announcement?</label>
+                        <input type="text"
+                            class="form-control">
+                    </div>
 
 
 
+                </form>
 
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap Content -->
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>

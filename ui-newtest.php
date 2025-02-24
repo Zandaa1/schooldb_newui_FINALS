@@ -5,12 +5,11 @@ include('session.php');
 <html lang="en" data-bs-theme="auto">
 
 <head>
-    <title>Title</title>
+    <title>Creating new test...</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/journal/bootstrap.min.css" rel="stylesheet">
     <style>
         body,
         html {
@@ -66,34 +65,12 @@ include('session.php');
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="sidebar">
-            <h2>School DBMS</h2>
-            <small style="color:grey;">Student Portal</small>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="ui-classroom-v2.php">Classroom</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#"> <i class="bi bi-list-task"></i> To Do</a>
-                </li>
-            </ul>
-            <hr>
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="img/avatar-placeholder.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong><?php echo $nickname;?></strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <li><a class="dropdown-item" href="ui-login.php">Sign out</a></li>
-                </ul>
-            </div>
-        </div>
+<?php require_once('ui-sidebar.php'); ?>
 
         <div class="content">
             <div class="container-fluid p-3">
                 <div class="mb-3">
+                <a href="ui-classroom-v2.php" class="btn btn-danger">Go back</a>
                     <h2 class="display-4">Create New Test</h2>
 
                     <form action="submit_newtest.php" method="post">
