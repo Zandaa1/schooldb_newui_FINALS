@@ -84,128 +84,128 @@ include('session.php');
     <!-- Side Bar -->
     <?php require_once('ui-sidebar.php'); ?>
 
-        <!-- Content -->
-        <div class="content">
-            <div class="container-fluid p-3">
-                <div class="alert alert-danger d-flex align-items-center" role="alert">
-                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" fill="red">
-                        <use xlink:href="#exclamation-triangle-fill" />
-                    </svg>
-                    THIS IS ONLY MEANT FOR DEVELOPMENT!
-                </div>
+    <!-- Content -->
+    <div class="content">
+        <div class="container-fluid p-3">
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" fill="red">
+                    <use xlink:href="#exclamation-triangle-fill" />
+                </svg>
+                THIS IS ONLY MEANT FOR DEVELOPMENT!
+            </div>
 
 
-    <!-- Remove on release DEV MENU -->
+            <!-- Remove on release DEV MENU -->
             <a href="ui-classroom-v2.php" class="btn btn-danger">Return to userMode</a>
             <a href="logout.php" class="btn btn-primary">Logout session</a>
             <a href="deleteTestData.php" class="btn btn-success">Clear Data</a>
 
-            <small>Current Mode: <?php 
-            if ($isStudent == 0) {
-                echo 'Teacher';
-            } else {
-                echo 'Student';
-            }
-            ?> 
+            <small>Current Mode: <?php
+                                    if ($isStudent == 0) {
+                                        echo 'Teacher';
+                                    } else {
+                                        echo 'Student';
+                                    }
+                                    ?>
             </small>
 
             <?php
-                    // Include config file
-                    require_once "config.php";
-                    
-                    // Attempt select query execution
-                    $sql = "SELECT * FROM test_questions";
-                    $sql2 = "SELECT * FROM users";
-                    if($result = mysqli_query($link, $sql)){
-                        if(mysqli_num_rows($result) > 0){
-                            echo '<h1>DB [Test Questions]</h1>';
-                            echo '<table class="table table-bordered table-striped">';
-                                echo "<thead>";
-                                    echo "<tr>";
-                                        echo "<th>Question ID</th>";
-                                        echo "<th>Test ID</th>";
-                                        echo "<th>Question</th>";
-                                        echo "<th>Answer #1</th>";
-                                        echo "<th>Answer #2</th>";
-                                        echo "<th>Answer #3</th>";
-                                        echo "<th>Answer #4</th>";
-                                        echo "<th>Answer #5</th>";
-                                        echo "<th>Correct Answer</th>";
-                                    echo "</tr>";
-                                echo "</thead>";
-                                echo "<tbody>";
-                                while($row = mysqli_fetch_array($result)){
-                                    echo "<tr>";
-                                        echo "<td>" . $row['id'] . "</td>";
-                                        echo "<td>" . $row['testId'] . "</td>";
-                                        echo "<td>" . $row['question'] . "</td>";
-                                        echo "<td>" . $row['answer1'] . "</td>";
-                                        echo "<td>" . $row['answer2'] . "</td>";
-                                        echo "<td>" . $row['answer3'] . "</td>";
-                                        echo "<td>" . $row['answer4'] . "</td>";
-                                        echo "<td>" . $row['answer5'] . "</td>";
-                                        echo "<td>" . $row['correctAnswer'] . "</td>";
-                                    echo "</tr>";
-                                }
-                                echo "</tbody>";                            
-                            echo "</table>";
+            // Include config file
+            require_once "config.php";
 
-
-                            // Free result set
-                            mysqli_free_result($result);
-                        } else{
-                            echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
-                        }
-                    } else{
-                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+            // Attempt select query execution
+            $sql = "SELECT * FROM test_questions";
+            $sql2 = "SELECT * FROM users";
+            if ($result = mysqli_query($link, $sql)) {
+                if (mysqli_num_rows($result) > 0) {
+                    echo '<h1>DB [Test Questions]</h1>';
+                    echo '<table class="table table-bordered table-striped">';
+                    echo "<thead>";
+                    echo "<tr>";
+                    echo "<th>Question ID</th>";
+                    echo "<th>Test ID</th>";
+                    echo "<th>Question</th>";
+                    echo "<th>Answer #1</th>";
+                    echo "<th>Answer #2</th>";
+                    echo "<th>Answer #3</th>";
+                    echo "<th>Answer #4</th>";
+                    echo "<th>Answer #5</th>";
+                    echo "<th>Correct Answer</th>";
+                    echo "</tr>";
+                    echo "</thead>";
+                    echo "<tbody>";
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo "<tr>";
+                        echo "<td>" . $row['id'] . "</td>";
+                        echo "<td>" . $row['testId'] . "</td>";
+                        echo "<td>" . $row['question'] . "</td>";
+                        echo "<td>" . $row['answer1'] . "</td>";
+                        echo "<td>" . $row['answer2'] . "</td>";
+                        echo "<td>" . $row['answer3'] . "</td>";
+                        echo "<td>" . $row['answer4'] . "</td>";
+                        echo "<td>" . $row['answer5'] . "</td>";
+                        echo "<td>" . $row['correctAnswer'] . "</td>";
+                        echo "</tr>";
                     }
+                    echo "</tbody>";
+                    echo "</table>";
 
-                    if($result2 = mysqli_query($link, $sql2)){
-                        if(mysqli_num_rows($result2) > 0){
-                            echo '<h1>DB [Users]</h1>';
-                            echo '<table class="table table-bordered table-striped">';
-                                echo "<thead>";
-                                    echo "<tr>";
-                                        echo "<th>id</th>";
-                                        echo "<th>Username</th>";
-                                        echo "<th>Password</th>";
-                                        echo "<th>Student Name</th>";
-                                        echo "<th>Nickname</th>";
-                                        echo "<th>isStudent</th>";
-                                    echo "</tr>";
-                                echo "</thead>";
-                                echo "<tbody>";
-                                while($row2 = mysqli_fetch_array($result2)){
-                                    echo "<tr>";
-                                        echo "<td>" . $row2['id'] . "</td>";
-                                        echo "<td>" . $row2['username'] . "</td>";
-                                        echo "<td>" . $row2['password'] . "</td>";
-                                        echo "<td>" . $row2['name'] . "</td>";
-                                        echo "<td>" . $row2['nickname'] . "</td>";
-                                        if ($row2['isStudent'] == 0) {
-                                            echo "<td> Teacher </td>";
-                                        } else {
-                                            echo "<td> Student </td>";
-                                        }
-                                    echo "</tr>";
-                                }
-                                echo "</tbody>";                            
-                            echo "</table>";
-                            // Free result set
-                            mysqli_free_result($result2);
-                        } else{
-                            echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+
+                    // Free result set
+                    mysqli_free_result($result);
+                } else {
+                    echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                }
+            } else {
+                echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+            }
+
+            if ($result2 = mysqli_query($link, $sql2)) {
+                if (mysqli_num_rows($result2) > 0) {
+                    echo '<h1>DB [Users]</h1>';
+                    echo '<table class="table table-bordered table-striped">';
+                    echo "<thead>";
+                    echo "<tr>";
+                    echo "<th>id</th>";
+                    echo "<th>Username</th>";
+                    echo "<th>Password</th>";
+                    echo "<th>Student Name</th>";
+                    echo "<th>Nickname</th>";
+                    echo "<th>isStudent</th>";
+                    echo "</tr>";
+                    echo "</thead>";
+                    echo "<tbody>";
+                    while ($row2 = mysqli_fetch_array($result2)) {
+                        echo "<tr>";
+                        echo "<td>" . $row2['id'] . "</td>";
+                        echo "<td>" . $row2['username'] . "</td>";
+                        echo "<td>" . $row2['password'] . "</td>";
+                        echo "<td>" . $row2['name'] . "</td>";
+                        echo "<td>" . $row2['nickname'] . "</td>";
+                        if ($row2['isStudent'] == 0) {
+                            echo "<td> Teacher </td>";
+                        } else {
+                            echo "<td> Student </td>";
                         }
-                    } else{
-                        echo "ERROR: Could not able to execute $sql2. " . mysqli_error($link);
+                        echo "</tr>";
                     }
+                    echo "</tbody>";
+                    echo "</table>";
+                    // Free result set
+                    mysqli_free_result($result2);
+                } else {
+                    echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                }
+            } else {
+                echo "ERROR: Could not able to execute $sql2. " . mysqli_error($link);
+            }
 
-                    mysqli_close($link);
- 
-                    ?>  
+            mysqli_close($link);
 
-            </div>
+            ?>
+
         </div>
+    </div>
     </div>
 
     <?php

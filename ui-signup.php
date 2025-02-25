@@ -6,26 +6,29 @@ $error = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = mysqli_real_escape_string($link, $_POST['username']);
     $password = mysqli_real_escape_string($link, $_POST['password']);
+    $name = mysqli_real_escape_string($link, $_POST['name']);
+    $nickname = mysqli_real_escape_string($link, $_POST['nickname']);
+    $isStudent = mysqli_real_escape_string($link, $_POST['isStudent']);
 
-    $sql = "SELECT id, isStudent, nickname FROM users WHERE username = '$username' and password = '$password'";
+    // Check if the username already exists
+    $sql = "SELECT id FROM users WHERE username = '$username'";
     $result = mysqli_query($link, $sql);
-    $count = mysqli_num_rows($result);
-
-    if ($count == 1) {
-        $row = mysqli_fetch_assoc($result);
-
-        $isStudent = $row['isStudent'];
-        $nickname = $row['nickname'];
-        $id = $row['id'];
-
-        $_SESSION['login_user'] = $username;
-        $_SESSION['isStudent'] = $isStudent;
-        $_SESSION['nickname'] = $nickname;
-        $_SESSION['id'] = $id;
-        header("location: ui-classroom-v2.php");
+    if (mysqli_num_rows($result) > 0) {
+        $error = "Username already exists. Please choose a different username.";
     } else {
-        $error = "Invalid login. Try again!";
+        // Insert the new user into the database
+        $sql = "INSERT INTO users (username, password, name, nickname, isStudent) VALUES ('$username', '$password', '$name', '$nickname', '$isStudent')";
+        if (mysqli_query($link, $sql)) {
+            $_SESSION['login_user'] = $username;
+            $_SESSION['isStudent'] = $isStudent;
+            $_SESSION['nickname'] = $nickname;
+            $_SESSION['id'] = mysqli_insert_id($link);
+            header("location: ui-classroom-v2.php");
+        } else {
+            $error = "Error: " . $sql . "<br>" . mysqli_error($link);
+        }
     }
+    mysqli_close($link);
 }
 ?>
 <!DOCTYPE html>
@@ -34,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Login</title>
+    <title>School Signup</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://use.fontawesome.com/f59bcd8580.js"></script>
@@ -129,10 +132,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <div class="row m-5 no-gutters shadow-lg">
             <div class="col-md-6 d-none d-md-block">
-                <img src="img/pwu.jpg" alt="Login Image" class="img-fluid login-image" />
+                <img src="img/pwu.jpg" alt="Signup Image" class="img-fluid login-image" />
             </div>
             <div class="col-md-6 bg-white p-5">
-                <h3 class="pb-3">Welcome to School!</h3>
+                <h3 class="pb-3">Create Your Account</h3>
                 <div class="form-style">
                     <form action="" method="post">
                         <div class="form-group pb-3">
@@ -141,12 +144,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="form-group pb-3">
                             <input type="password" placeholder="Password" class="form-control" id="password" name="password" required>
                         </div>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center"><input name="" type="checkbox" value="" /> <span class="pl-2 font-weight-bold">Remember Me</span></div>
-                            <div><a href="#">Forget Password?</a></div>
+                        <div class="form-group pb-3">
+                            <input type="text" placeholder="Full Name" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group pb-3">
+                            <input type="text" placeholder="Nickname" class="form-control" id="nickname" name="nickname" required>
+                        </div>
+                        <div class="form-group pb-3">
+                            <select class="form-control" id="isStudent" name="isStudent" required>
+                                <option value="1">Student</option>
+                                <option value="0">Teacher</option>
+                            </select>
                         </div>
                         <div class="pb-2">
-                            <button type="submit" class="btn btn-dark w-100 font-weight-bold mt-2">Login</button>
+                            <button type="submit" class="btn btn-dark w-100 font-weight-bold mt-2">Sign Up</button>
                         </div>
                         <?php if ($error) { ?>
                             <div class="alert alert-danger mt-3"> <svg class="bi flex-shrink-0 me-2" width="24" height="24" fill="red">
@@ -155,7 +166,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <?php } ?>
                     </form>
                     <div class="pt-4 text-center">
-                        New to our school? <a href="ui-signup.php">Sign Up</a>
+                        Already have an account? <a href="index.php">Login</a>
                     </div>
                     <div class="text-center">
                         <small class="text-center mt-3">
