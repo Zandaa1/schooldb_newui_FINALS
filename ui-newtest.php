@@ -71,7 +71,7 @@ include('session.php');
             <div class="container-fluid p-3">
                 <div class="mb-3">
                 <a href="ui-classroom-v2.php" class="btn btn-danger">Go back</a>
-                    <h2 class="display-4">Create New Test</h2>
+                    <h1>Create New Test</h1>
 
                     <form action="submit_newtest.php" method="post">
                         <label for="testName" class="form-label">Test Name:</label>

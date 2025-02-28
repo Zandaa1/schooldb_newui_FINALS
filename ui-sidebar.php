@@ -15,6 +15,17 @@ echo '</small>';
 echo '<ul class="nav flex-column">';
 echo '<li class="nav-item">';
 echo '<a class="nav-link active" href="ui-classroom-v2.php">Classroom</a>';
+
+# Show gradebook and test creation
+if ($isStudent == 0) {
+    echo '<a class="nav-link active" href="ui-gradebook.php">Gradebook</a>';
+    echo '<a class="nav-link active" href="ui-newtest.php">Create Test</a>';
+    
+} else {
+    echo '<a class="nav-link disabled" href="#">Gradebook</a>';
+}
+
+
 echo '</li>';
 echo '</ul>';
 echo '<hr>';
@@ -24,7 +35,11 @@ echo '<img src="img/avatar-placeholder.jpg" alt="" width="32" height="32" class=
 echo '<strong>' . $nickname . '</strong>';
 echo '</a>';
 echo '<ul class="dropdown-menu dropdown-menu-dark text-small shadow">';
-echo '<li><a class="dropdown-item" href="ui-devmenu.php">Developer Menu</a></li>';
+
+if ($isStudent == 0) {
+    echo '<li><a class="dropdown-item" href="ui-devmenu.php">Developer Menu</a></li>';
+}
+
 echo '<li><a class="dropdown-item" href="logout.php">Sign out</a></li>';
 echo '</ul>';
 echo '</div>';

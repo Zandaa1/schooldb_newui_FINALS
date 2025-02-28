@@ -90,21 +90,6 @@ $className = $_SESSION['className'];
 
             <div class="container-fluid p-2">
 
-            <?php
-            if ($isStudent == 0) {
-                echo '<div class="d-flex flex-row">';
-                echo '<div class="p-2"><a href="ui-classroom-v2.php" class="btn btn-danger">Go back</a></div>';
-                echo '<div class="p-2"><a href="ui-newtest.php" class="btn btn-danger">Create a new test</a></div>';
-                echo '<div class="p-2"><a href="ui-newannouncement.php" class="btn btn-danger">Create an announcement</a></div>';
-                echo '<div class="p-2"><a href="ui-gradebook.php" class="btn btn-danger">Gradebook</a></div>';
-                echo '</div>';
-            } else {
-                echo '<div class="d-flex flex-row">';
-                echo '<div class="p-2"><a href="ui-classroom-v2.php" class="btn btn-danger">Go back</a></div>';
-                echo '</div>';
-            }
-            ?>
-
             </div>
             
                 <div class="col">

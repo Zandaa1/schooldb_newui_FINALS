@@ -159,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="text-center">
                         <small class="text-center mt-3">
-                            v1.16.2025
+                            v2.28.2025
                         </small>
                     </div>
                 </div>

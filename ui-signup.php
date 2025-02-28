@@ -153,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="form-group pb-3">
                             <select class="form-control" id="isStudent" name="isStudent" required>
                                 <option value="1">Student</option>
-                                <option value="0">Teacher</option>
+                                <!-- <option value="0">Teacher</option> !-->
                             </select>
                         </div>
                         <div class="pb-2">
@@ -170,7 +170,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="text-center">
                         <small class="text-center mt-3">
-                            v1.16.2025
+                            v2.28   .2025
                         </small>
                     </div>
                 </div>
